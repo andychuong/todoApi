@@ -48,4 +48,21 @@ router.post('/', (req, res, next) => {
     })
 })
 
+router.delete('/:id', checkId, (req, res, next) => {
+  knex('tasks')
+    .where('id', req.params.id)
+    .returning('*')
+    .del()
+    .then(result => {
+      res.send(result);
+    })
+    .catch(err => {
+      res.status(400).send({
+        error: {
+          message: 'Something broke.'
+        }
+      })
+    })
+})
+
 module.exports = router;
