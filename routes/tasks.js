@@ -25,7 +25,7 @@ const checkId = (req, res, next) => {
 
 router.get('/:id', checkId, (req, res, next) => {
   knex('tasks').where('id', req.params.id).then(result => {
-    res.send(result);
+    res.send(result[0]);
   })
 })
 
